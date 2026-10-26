@@ -234,6 +234,7 @@ footer { margin-top: 64px; padding-top: 14px; border-top: 1px solid var(--rule);
 
       <article class="project" style="border-top:0;padding-top:0">
         <h2>PyCheb: Chebfun in Python, built with AI coding agents</h2>
+        <p class="sub">MATLAB, Python, NumPy, pytest, agentic AI engineering, test-driven development</p>
         <div class="prose" style="gap:12px">
           <p>Chebfun represents smooth functions by their Chebyshev expansions, so you can differentiate, integrate, find roots and solve differential equations on functions as if they were numbers. It's about 3,400 MATLAB files. We're porting it to Python with AI coding agents (I work with Codex), and most of the engineering is in the process that makes an agent's output trustworthy.</p>
         </div>
@@ -244,20 +245,21 @@ footer { margin-top: 64px; padding-top: 14px; border-top: 1px solid var(--rule);
           <li><b>Scoped context.</b> Each prompt limits the agent to the module, its tests and its direct dependencies. That keeps token cost down and keeps edits from spreading.</li>
           <li><b>Debugging test failures.</b> When tests fail, I separate floating-point rounding differences from real bugs. I push back when an agent argues that a behavior gap is acceptable instead of fixing it.</li>
         </ul>
-        <p class="built">Python, NumPy, pytest, Codex</p>
       </article>
 
       <article class="project">
         <h2>Fast simulation of discrete-rank scheduling</h2>
+        <p class="sub">Python, NumPy, optimization, advanced algorithms, queueing theory, discrete-event simulation</p>
         <div class="prose" style="gap:12px">
           <p>A single-server queue that always serves the job with the lowest rank, where a job's rank depends on how much service it has already received. A naive discrete-event simulator has to stop at every rank breakpoint. Ours advances groups of tied jobs together and uses bisection to jump straight to the next event that actually changes which job is being served.</p>
           <p>We then replaced the per-job Python loops with vectorized NumPy array operations. On the largest benchmark (5,000 jobs, highest rank resolution), the naive simulator took over 16,000 seconds, about four and a half hours. Ours finished in 150 seconds, a 108× speedup.</p>
         </div>
-        <p class="built">Python, NumPy · <a class="dl" data-umami-event="Scheduling paper PDF" href="Discrete_Rank_Scheduling_Paper.pdf?v=20261025b" data-filename="Discrete_Rank_Scheduling_Paper.pdf" data-note="paper-note" target="_blank" rel="noopener">Read the paper (PDF)</a> <span class="dl-note" id="paper-note" aria-live="polite"></span></p>
+        <p class="built"><a class="dl" data-umami-event="Scheduling paper PDF" href="Discrete_Rank_Scheduling_Paper.pdf?v=20261025b" data-filename="Discrete_Rank_Scheduling_Paper.pdf" data-note="paper-note" target="_blank" rel="noopener">Read the paper (PDF)</a> <span class="dl-note" id="paper-note" aria-live="polite"></span></p>
       </article>
 
       <article class="project">
         <h2>Cornell course scheduler</h2>
+        <p class="sub">OCaml, functional programming, REST API integration, JSON parsing, unit testing</p>
         <div class="prose" style="gap:12px">
           <p>An OCaml schedule builder that pulls live course data from Cornell's Class Roster API. You can search by subject, name, level, credits or requirement, then add courses to a schedule that catches time conflicts and missing lecture or discussion sections.</p>
         </div>
@@ -266,13 +268,13 @@ footer { margin-top: 64px; padding-top: 14px; border-top: 1px solid var(--rule);
           <li>Conflict detection that reports exactly which days a new course collides with your schedule.</li>
           <li>Tested with OUnit, with coverage measured by bisect_ppx.</li>
         </ul>
-        <p class="built">OCaml, Dune, Yojson, Cohttp</p>
       </article>
 
       <p class="section-label" style="margin-top:24px">Currently working on</p>
       <article class="project" style="border-top:0;padding-top:0">
         <h2>The shape of city shadows</h2>
-        <p class="sub">Fall 2026, in progress</p>
+        <p class="sub">Machine learning, VAEs, autoencoders, JEPA, representation learning, manifold geometry</p>
+        <p style="max-width:65ch">The goal is to understand what representation-learning models such as VAEs, autoencoders and JEPA (joint-embedding predictive architectures) actually learn. That question is hard to answer on real data, because nobody knows the true structure underneath. So we built a small world where we do: a simplified city in which sunlight and shadow are controlled by exactly two numbers.</p>
         <div class="fig-side">
           <div class="prose" style="gap:12px">
             <p>Stand somewhere on a street and look toward the sun. Whether you're in shade depends on the skyline in that direction, and the skyline is set by whichever building <i>looks</i> tallest from where you are, which is often not the tallest one.</p>
@@ -298,14 +300,13 @@ footer { margin-top: 64px; padding-top: 14px; border-top: 1px solid var(--rule);
         </div>
         <div class="prose" style="gap:12px">
           <p>To study this in a controlled way, we split a city into a west and an east group of buildings and scale their heights by two multipliers, <i>a</i> and <i>b</i>. Which group controls the skyline flips wherever <i>a·A</i> = <i>b·B</i>, so each location and direction cuts the (<i>a</i>, <i>b</i>) plane into regions.</p>
-          <p>Each city produces a whole function: a skyline angle for every location and direction. We treat the collection of these functions as a mathematical space and ask whether it's a manifold. Since our cities vary by only two numbers, that space should be two-dimensional. The ML side tests whether a model can discover that structure on its own.</p>
+          <p>Each city produces a whole function: a skyline angle for every location and direction. We treat the collection of these functions as a mathematical space and ask whether it's a manifold. Since our cities vary by only two numbers, that space should be two-dimensional. That gives us a ground truth to grade models against: we can check whether a learned representation recovers the two-dimensional structure, and see exactly where it doesn't.</p>
         </div>
         <ul>
           <li><b>Data.</b> For each sampled city (<i>a</i>, <i>b</i>), we evaluate the skyline equations at a fixed set of ground locations and viewing directions, giving one vector of measurements per city. The equations only generate the data; they aren't part of the model.</li>
-          <li><b>Model.</b> A variational autoencoder (VAE) encodes each measurement vector into two latent coordinates and decodes it back. It's trained to reconstruct the measurements while keeping the latent space smooth.</li>
+          <li><b>Model.</b> A variational autoencoder (VAE) encodes each measurement vector into two latent coordinates and decodes it back. It's trained to reconstruct the measurements while keeping the latent space smooth. The same testbed is built for comparing other representation learners, such as plain autoencoders and JEPA-style models that learn by predicting in latent space instead of reconstructing inputs.</li>
           <li><b>Question.</b> Does the learned 2D latent space line up with the true parameters (<i>a</i>, <i>b</i>)? And how does the model handle the switching boundaries <i>a·A</i> = <i>b·B</i>, where the max in the skyline equation makes the measurements change abruptly?</li>
         </ul>
-        <p class="built">Variational autoencoders, representation learning, manifold geometry</p>
       </article>
     </section>
 
