@@ -298,8 +298,14 @@ footer { margin-top: 64px; padding-top: 14px; border-top: 1px solid var(--rule);
         </div>
         <div class="prose" style="gap:12px">
           <p>To study this in a controlled way, we split a city into a west and an east group of buildings and scale their heights by two multipliers, <i>a</i> and <i>b</i>. Which group controls the skyline flips wherever <i>a·A</i> = <i>b·B</i>, so each location and direction cuts the (<i>a</i>, <i>b</i>) plane into regions.</p>
-          <p>We then treat the whole collection of skyline rules as a mathematical space and ask whether it's a manifold. On the learning side, a VAE compresses lists of skyline measurements down to two latent coordinates, and we compare what it learns against the geometry.</p>
+          <p>Each city produces a whole function: a skyline angle for every location and direction. We treat the collection of these functions as a mathematical space and ask whether it's a manifold. Since our cities vary by only two numbers, that space should be two-dimensional. The ML side tests whether a model can discover that structure on its own.</p>
         </div>
+        <ul>
+          <li><b>Data.</b> For each sampled city (<i>a</i>, <i>b</i>), we evaluate the skyline equations at a fixed set of ground locations and viewing directions, giving one vector of measurements per city. The equations only generate the data; they aren't part of the model.</li>
+          <li><b>Model.</b> A variational autoencoder (VAE) encodes each measurement vector into two latent coordinates and decodes it back. It's trained to reconstruct the measurements while keeping the latent space smooth.</li>
+          <li><b>Question.</b> Does the learned 2D latent space line up with the true parameters (<i>a</i>, <i>b</i>)? And how does the model handle the switching boundaries <i>a·A</i> = <i>b·B</i>, where the max in the skyline equation makes the measurements change abruptly?</li>
+        </ul>
+        <p class="built">Variational autoencoders, representation learning, manifold geometry</p>
       </article>
     </section>
 
