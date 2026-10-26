@@ -112,7 +112,7 @@ button.linkish {
 .eq .up { font-style: normal; }
 .fig-side { display: grid; grid-template-columns: minmax(0, 1fr) 200px; gap: 24px; align-items: start; }
 .fig-side svg { width: 100%; max-width: 100%; height: auto; }
-.section-label { font-size: 1rem; font-weight: 600; color: var(--muted); font-style: italic; margin-top: 8px; }
+.section-label { font-size: 1.45rem; font-weight: 700; color: var(--ink); letter-spacing: -0.005em; margin-top: 36px; padding-top: 28px; border-top: 2px solid var(--ink); }
 
 /* Resume */
 .resume-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 10px 20px; }
@@ -266,7 +266,7 @@ footer { margin-top: 64px; padding-top: 14px; border-top: 1px solid var(--rule);
         </ul>
       </article>
 
-      <p class="section-label" style="margin-top:24px">Currently working on</p>
+      <p class="section-label" role="heading" aria-level="2">Currently working on</p>
       <article class="project" style="border-top:0;padding-top:0">
         <h2>The shape of city shadows</h2>
         <p class="sub">Machine learning, VAEs, autoencoders, JEPA, representation learning, manifold geometry</p>
