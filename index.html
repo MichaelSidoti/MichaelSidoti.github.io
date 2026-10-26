@@ -101,6 +101,7 @@ button.linkish {
 .project { display: grid; gap: 12px; padding-top: 26px; border-top: 1px solid var(--rule); }
 .project:first-of-type { border-top: 0; padding-top: 0; }
 .project .sub { color: var(--muted); font-size: 0.95rem; font-style: italic; }
+.project h3 { margin-top: 10px; }
 .project ul { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; max-width: 65ch; }
 .built { font-size: 0.92rem; color: var(--muted); }
 .eq {
@@ -269,15 +270,15 @@ footer { margin-top: 64px; padding-top: 14px; border-top: 1px solid var(--rule);
       <article class="project" style="border-top:0;padding-top:0">
         <h2>The shape of city shadows</h2>
         <p class="sub">Machine learning, VAEs, autoencoders, JEPA, representation learning, manifold geometry</p>
-        <p style="max-width:65ch">The goal is to understand what representation-learning models such as VAEs, autoencoders and JEPA (joint-embedding predictive architectures) actually learn. That question is hard to answer on real data, because nobody knows the true structure underneath. So we built a small world where we do: a simplified city in which sunlight and shadow are controlled by exactly two numbers.</p>
+        <p style="max-width:65ch">Representation-learning models like VAEs, autoencoders and JEPA (joint-embedding predictive architectures) compress data into a few latent coordinates. On real data it's hard to tell whether those coordinates capture the true structure, because nobody knows what the true structure is. This project builds a world where we do know it, and uses it to test what these models actually learn.</p>
+        <h3>The world: sunlight in a city</h3>
         <div class="fig-side">
           <div class="prose" style="gap:12px">
-            <p>Stand somewhere on a street and look toward the sun. Whether you're in shade depends on the skyline in that direction, and the skyline is set by whichever building <i>looks</i> tallest from where you are, which is often not the tallest one.</p>
+            <p>Stand on a street and look toward the sun. You're in shade if a building blocks it, and what matters is the building that <i>looks</i> tallest from where you stand, which often isn't the tallest one. That gives the skyline angle β, and a spot is sunlit when the sun's elevation α clears it.</p>
             <div class="eq" aria-label="Skyline angle and sunlight equations">
               <span>β<sub>C</sub>(p, θ) = <span class="up">arctan</span> max<sub>j</sub> h<sub>j</sub> / d<sub>j</sub>(p, θ)</span>
               <span>V<sub>C</sub>(p, θ, α) = <span class="up">𝟏</span>[ α &gt; β<sub>C</sub>(p, θ) ]</span>
             </div>
-            <p>You're in sunlight when the sun's elevation α clears the skyline angle β.</p>
           </div>
           <figure>
             <svg viewBox="0 0 200 116" role="img" aria-label="A 10-unit building 10 units away subtends 45 degrees, higher than a 30-unit building 60 units away at about 26.6 degrees.">
@@ -293,14 +294,16 @@ footer { margin-top: 64px; padding-top: 14px; border-top: 1px solid var(--rule);
             <figcaption>A 10 m building 10 m away blocks more sky than a 30 m building 60 m away.</figcaption>
           </figure>
         </div>
+        <h3>Two numbers control everything</h3>
         <div class="prose" style="gap:12px">
-          <p>To study this in a controlled way, we split a city into a west and an east group of buildings and scale their heights by two multipliers, <i>a</i> and <i>b</i>. Which group controls the skyline flips wherever <i>a·A</i> = <i>b·B</i>, so each location and direction cuts the (<i>a</i>, <i>b</i>) plane into regions.</p>
-          <p>Each city produces a whole function: a skyline angle for every location and direction. We treat the collection of these functions as a mathematical space and ask whether it's a manifold. Since our cities vary by only two numbers, that space should be two-dimensional. That gives us a ground truth to grade models against: we can check whether a learned representation recovers the two-dimensional structure, and see exactly where it doesn't.</p>
+          <p>We split the buildings into a west group and an east group and scale their heights by two multipliers, <i>a</i> and <i>b</i>. Every city is just a point (<i>a</i>, <i>b</i>), so the space of all cities is two-dimensional by construction. That's the ground truth a model should recover.</p>
+          <p>There's one interesting wrinkle. Control of the skyline switches from one group to the other wherever <i>a·A</i> = <i>b·B</i>, and at those boundaries the measurements change abruptly.</p>
         </div>
+        <h3>What we test</h3>
         <ul>
-          <li><b>Data.</b> For each sampled city (<i>a</i>, <i>b</i>), we evaluate the skyline equations at a fixed set of ground locations and viewing directions, giving one vector of measurements per city. The equations only generate the data; they aren't part of the model.</li>
-          <li><b>Model.</b> A variational autoencoder (VAE) encodes each measurement vector into two latent coordinates and decodes it back. It's trained to reconstruct the measurements while keeping the latent space smooth. The same testbed is built for comparing other representation learners, such as plain autoencoders and JEPA-style models that learn by predicting in latent space instead of reconstructing inputs.</li>
-          <li><b>Question.</b> Does the learned 2D latent space line up with the true parameters (<i>a</i>, <i>b</i>)? And how does the model handle the switching boundaries <i>a·A</i> = <i>b·B</i>, where the max in the skyline equation makes the measurements change abruptly?</li>
+          <li><b>Data.</b> Each city (<i>a</i>, <i>b</i>) is measured at a fixed set of ground locations and viewing directions, giving one vector of skyline values. The equations only generate the data; they aren't part of any model.</li>
+          <li><b>Models.</b> A VAE compresses each vector to two latent coordinates and reconstructs it. The same setup lets us compare plain autoencoders and JEPA-style models, which learn by predicting in latent space instead of reconstructing inputs.</li>
+          <li><b>Questions.</b> Does the learned 2D space line up with the true (<i>a</i>, <i>b</i>)? Does the collection of skyline functions form a manifold, and how do the models handle the switching boundaries where it bends sharply?</li>
         </ul>
       </article>
     </section>
