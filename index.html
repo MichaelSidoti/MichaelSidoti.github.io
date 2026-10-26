@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:title" content="Michael Sidoti">
+<meta property="og:description" content="Computer Science and Mathematics at Cornell University. Software engineering, research and projects.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231f4fbf'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='17' font-weight='700' text-anchor='middle' fill='white'%3EMS%3C/text%3E%3C/svg%3E">
+<title>Michael Sidoti</title>
+<meta name="description" content="Michael Sidoti, Computer Science and Mathematics at Cornell University.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=IBM+Plex+Mono:wght@400&family=STIX+Two+Text:ital@1&display=swap">
+<style>
+/* Layout: one left-aligned reading column, name and plain-text nav across the top, one section shown at a time. Written like a personal academic homepage. */
+:root {
+  --bg: #fcfcfb;
+  --ink: #1c1c1e;
+  --muted: #5d5d64;
+  --rule: #e3e3e0;
+  --link: #1f4fbf;
+  --faint: #c9cfdc;
+
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --math: "STIX Two Text", "Cambria Math", "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #151517; --ink: #e9e7e3; --muted: #a3a1a8; --rule: #2c2c30; --link: #8eb0ff; --faint: #3c4458;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #151517; --ink: #e9e7e3; --muted: #a3a1a8; --rule: #2c2c30; --link: #8eb0ff; --faint: #3c4458;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: var(--link); text-underline-offset: 2px; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+
+.page { max-width: 720px; margin: 0 auto; padding-block: 48px 72px; }
+
+header.top {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+  gap: 8px 24px; padding-bottom: 14px; border-bottom: 1px solid var(--rule); margin-bottom: 40px;
+}
+.name { font-size: 1.35rem; font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: -0.005em; }
+nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 22px; font-size: 1rem; }
+nav a { color: var(--muted); text-decoration: none; }
+nav a:hover { color: var(--ink); text-decoration: underline; }
+nav a[aria-current="page"] { color: var(--ink); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+
+h1, h2, h3 { margin: 0; line-height: 1.25; text-wrap: balance; }
+h1 { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.3rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 600; }
+p { margin: 0; }
+.view { display: grid; gap: 28px; }
+.prose { display: grid; gap: 16px; max-width: 65ch; }
+.muted { color: var(--muted); }
+.small { font-size: 0.9rem; }
+code, .mono { font-family: var(--mono); font-size: 0.82em; }
+
+/* About */
+.portrait-row { display: grid; gap: 16px; }
+figure { margin: 0; }
+.plot canvas { display: block; width: 100%; height: 190px; }
+figcaption { font-size: 0.88rem; color: var(--muted); line-height: 1.5; margin-top: 8px; }
+.deg { display: inline-flex; align-items: center; gap: 8px; margin-top: 6px; font-size: 0.88rem; color: var(--muted); }
+.deg input { accent-color: var(--link); width: 140px; }
+.deg output { font-variant-numeric: tabular-nums; color: var(--ink); min-width: 1.5em; }
+.elsewhere { display: flex; flex-wrap: wrap; gap: 4px 18px; align-items: baseline; }
+button.linkish {
+  font: inherit; color: var(--link); background: none; border: 0; padding: 0; cursor: pointer;
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px;
+}
+
+/* Experience */
+.roles { list-style: none; margin: 0; padding: 0; display: grid; gap: 26px; }
+.role-line { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 2px 16px; }
+.dates { color: var(--muted); font-size: 0.92rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.roles p { margin-top: 4px; max-width: 65ch; }
+.roles .more { font-size: 0.92rem; }
+
+/* Projects */
+.project { display: grid; gap: 12px; padding-top: 26px; border-top: 1px solid var(--rule); }
+.project:first-of-type { border-top: 0; padding-top: 0; }
+.project .sub { color: var(--muted); font-size: 0.95rem; font-style: italic; }
+.project ul { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; max-width: 65ch; }
+.built { font-size: 0.92rem; color: var(--muted); }
+.eq {
+  font-family: var(--math); font-style: italic; font-size: 1.08rem;
+  display: grid; gap: 2px; padding-left: 1.2em; overflow-x: auto; white-space: nowrap;
+}
+.eq sub { font-size: 0.68em; }
+.eq .up { font-style: normal; }
+.fig-side { display: grid; grid-template-columns: minmax(0, 1fr) 200px; gap: 24px; align-items: start; }
+.fig-side svg { width: 100%; max-width: 100%; height: auto; }
+.section-label { font-size: 1rem; font-weight: 600; color: var(--muted); font-style: italic; margin-top: 8px; }
+
+/* Resume */
+.resume-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 10px 20px; }
+.pdf-btn {
+  font: 600 0.95rem var(--serif); color: var(--bg); background: var(--ink);
+  border: 0; border-radius: 3px; padding: 7px 14px; cursor: pointer; text-decoration: none;
+}
+.pdf-btn:hover { opacity: 0.88; }
+.dl-note { font-size: 0.88rem; color: var(--muted); min-height: 1.3em; }
+.r-block { display: grid; gap: 18px; }
+.r-block h2 { font-size: 1.05rem; border-bottom: 1px solid var(--rule); padding-bottom: 4px; }
+.r-entry { display: grid; gap: 4px; scroll-margin-top: 20px; }
+.r-entry.flash { animation: flash 1.6s ease-out; }
+@keyframes flash { from { background: color-mix(in srgb, var(--link) 12%, transparent); } to { background: transparent; } }
+.r-entry .where { font-style: italic; color: var(--muted); font-size: 0.95rem; }
+.r-entry ul { margin: 6px 0 0; padding-left: 1.2em; display: grid; gap: 4px; }
+.r-entry li { font-size: 0.96rem; }
+.cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 32px; }
+.cols ul { margin: 6px 0 0; padding-left: 1.2em; display: grid; gap: 2px; font-size: 0.96rem; }
+.skills { margin: 0; display: grid; gap: 6px; font-size: 0.96rem; }
+.skills div { display: grid; grid-template-columns: 9em minmax(0, 1fr); gap: 2px 12px; }
+.skills dt { font-weight: 600; }
+.skills dd { margin: 0; }
+
+footer { margin-top: 64px; padding-top: 14px; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) { .r-entry.flash { animation: none; } }
+@media (max-width: 640px) {
+  body { font-size: 17px; }
+  .page { padding-block: 28px 56px; }
+  header.top { margin-bottom: 28px; }
+  .fig-side, .cols { grid-template-columns: minmax(0, 1fr); }
+  .fig-side svg { max-width: 260px; }
+  .skills div { grid-template-columns: minmax(0, 1fr); }
+  .plot canvas { height: 160px; }
+}
+</style>
+</head>
+<body>
+
+
+<div class="page">
+  <header class="top">
+    <a class="name" href="#about" data-view="about">Michael Sidoti</a>
+    <nav aria-label="Pages">
+      <ul>
+        <li><a href="#about" data-view="about">About</a></li>
+        <li><a href="#experience" data-view="experience">Experience</a></li>
+        <li><a href="#projects" data-view="projects">Projects</a></li>
+        <li><a href="#resume" data-view="resume">Resume</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ABOUT -->
+    <section class="view" id="view-about" aria-labelledby="about-h">
+      <div class="prose">
+        <h1 id="about-h">Hi, I'm Michael.</h1>
+        <p>I'm a junior at Cornell studying computer science and math. I'm broadly interested in AI/ML, distributed systems, backend engineering, and advanced algorithms.</p>
+        <p>I spent this past summer as a software engineering intern at AWS, and I'm involved in research and TA positions on campus.</p>
+      </div>
+
+      <figure class="plot">
+        <canvas id="cheb" role="img" aria-label="Chebyshev polynomial on the interval from minus one to one, with its roots marked."></canvas>
+        <figcaption>
+          Chebyshev polynomials <i>T<sub>n</sub></i>(cos θ) = cos(<i>n</i>θ) on [−1, 1], the building blocks Chebfun uses to represent functions. Roots are marked on the axis.
+          <br>
+          <label class="deg" for="deg">Degree
+            <input id="deg" type="range" min="1" max="12" value="5">
+            <output id="deg-out" for="deg">5</output>
+          </label>
+        </figcaption>
+      </figure>
+
+      <div class="elsewhere small">
+        <span>Languages: Java, Python, C, C++, Go, TypeScript, JavaScript, OCaml</span>
+      </div>
+      <div class="elsewhere small" style="margin-top:-18px">
+        <span>Email: <span class="mono" id="email">mas888@cornell.edu</span> <button class="linkish small" id="copy-email" type="button">copy</button></span>
+        <span>Resume: <a class="dl" href="Michael_Sidoti_Resume.pdf" target="_blank" rel="noopener">PDF</a></span>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="view" id="view-experience" aria-labelledby="exp-h" hidden>
+      <h1 id="exp-h">Experience</h1>
+      <ul class="roles">
+        <li>
+          <div class="role-line"><h3>Amazon Web Services, <span style="font-weight:400;font-style:italic">Software Development Engineer Intern</span></h3><span class="dates">Summer 2026</span></div>
+          <p>Designed an event-driven notification system for an internal service used by 10,000 engineers, alerting 5,000 resolver groups when routing, paging or permissions change. Built on DynamoDB, EventBridge, Lambda, SQS and SES, with retries and dead-letter queues for fault tolerance.</p>
+          <a class="more" href="#resume" data-jump="r-aws">More on my resume</a>
+        </li>
+        <li>
+          <div class="role-line"><h3>Cornell Math + AI Lab, <span style="font-weight:400;font-style:italic">Research Assistant</span></h3><span class="dates">Jan 2026 – present</span></div>
+          <p>Translating the Chebfun numerical computing library from MATLAB to Python with AI coding agents, using test-driven development and held-out tests to verify what the agents produce.</p>
+          <a class="more" href="#resume" data-jump="r-lab">More on my resume</a>
+        </li>
+        <li>
+          <div class="role-line"><h3>Cornell ORIE, <span style="font-weight:400;font-style:italic">Research Project Team</span></h3><span class="dates">Dec 2025 – May 2026</span></div>
+          <p>Built a queueing simulator whose bisection-based algorithm runs 108× faster than naive discrete-event simulation.</p>
+          <a class="more" href="#resume" data-jump="r-orie">More on my resume</a>
+        </li>
+        <li>
+          <div class="role-line"><h3>Cornell CS, <span style="font-weight:400;font-style:italic">Teaching Assistant</span></h3><span class="dates">Sep 2025 – present</span></div>
+          <p>Lead weekly sections and tutor 300+ students in CS 5820 (Analysis of Algorithms) and CS 2800 (Discrete Math).</p>
+          <a class="more" href="#resume" data-jump="r-ta">More on my resume</a>
+        </li>
+        <li>
+          <div class="role-line"><h3>DataAnnotation, <span style="font-weight:400;font-style:italic">AI Trainer</span></h3><span class="dates">Jan 2025 – present</span></div>
+          <p>Evaluate LLM reasoning on computer science, math and physics problems.</p>
+          <a class="more" href="#resume" data-jump="r-da">More on my resume</a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="view" id="view-projects" aria-labelledby="proj-h" hidden>
+      <h1 id="proj-h">Projects</h1>
+
+      <article class="project" style="border-top:0;padding-top:0">
+        <h2>PyCheb: Chebfun in Python, built with AI coding agents</h2>
+        <p class="sub">Math + AI Lab with Prof. Alex Townsend, 2026, research team of seven</p>
+        <div class="prose" style="gap:12px">
+          <p>Chebfun represents smooth functions by their Chebyshev expansions, so you can differentiate, integrate, find roots and solve differential equations on functions as if they were numbers. It's about 3,400 MATLAB files. We're porting it to Python with AI coding agents (I work with Codex), and most of the engineering is in the process that makes an agent's output trustworthy.</p>
+        </div>
+        <ul>
+          <li><b>Test-driven development.</b> Chebfun's MATLAB test suite is translated to pytest first. An agent then implements each class against those tests, so "done" means it reproduces MATLAB's behavior.</li>
+          <li><b>Held-out tests.</b> The agent implementing a module is graded on tests it didn't write. It can't pass by shaping the tests around its own code, so a green run actually means parity.</li>
+          <li><b>Dependency-ordered translation.</b> I had the agent map the MATLAB classes into a dependency tree, then turn it into a file-by-file implementation order. Agents are told to stop and report when they reach a dependency that hasn't been translated yet.</li>
+          <li><b>Scoped context.</b> Each prompt limits the agent to the module, its tests and its direct dependencies. That keeps token cost down and keeps edits from spreading.</li>
+          <li><b>Debugging test failures.</b> When tests fail, I separate floating-point rounding differences from real bugs. I push back when an agent argues that a behavior gap is acceptable instead of fixing it.</li>
+        </ul>
+        <div class="prose" style="gap:12px">
+          <p>I've translated chebtech1, smoothfun, singfun, chebfunpref and chebpref, domain, linop, and the discretization classes. As of April 2026 the port had 1,111 Python test files mirroring 1,102 MATLAB ones, 1,447 tests in total. Every test family with a Python counterpart covers all of its MATLAB tests. The GUI and the SPIN solvers are what remains.</p>
+          <p>We're writing up where agents struggle with scientific code (overloaded syntax, floating-point conventions, object dispatch, numerical edge cases) in a paper planned for arXiv.</p>
+        </div>
+        <p class="built">Python, NumPy, pytest, Codex</p>
+      </article>
+
+      <article class="project">
+        <h2>Fast simulation of discrete-rank scheduling</h2>
+        <p class="sub">Spring 2026</p>
+        <div class="prose" style="gap:12px">
+          <p>A single-server queue that always serves the job with the lowest rank, where a job's rank depends on how much service it has already received. A naive discrete-event simulator has to stop at every rank breakpoint. Ours advances groups of tied jobs together and uses bisection to jump straight to the next event that actually changes which job is being served.</p>
+          <p>We then replaced the per-job Python loops with vectorized NumPy array operations. On the largest benchmark (5,000 jobs, highest rank resolution), the naive simulator took over 16,000 seconds, about four and a half hours. Ours finished in 150 seconds, a 108× speedup.</p>
+        </div>
+        <p class="built">Python, NumPy · <a class="dl" href="Discrete_Rank_Scheduling_Paper.pdf" data-filename="Discrete_Rank_Scheduling_Paper.pdf" data-note="paper-note" target="_blank" rel="noopener">Read the paper (PDF)</a> <span class="dl-note" id="paper-note" aria-live="polite"></span></p>
+      </article>
+
+      <article class="project">
+        <h2>Cornell course scheduler</h2>
+        <p class="sub">CS 3110 final project, team of four</p>
+        <div class="prose" style="gap:12px">
+          <p>An OCaml schedule builder that pulls live course data from Cornell's Class Roster API. You can search by subject, name, level, credits or requirement, then add courses to a schedule that catches time conflicts and missing lecture or discussion sections.</p>
+        </div>
+        <ul>
+          <li>Typed model of courses, sections, meetings and credit ranges, parsed from roster JSON.</li>
+          <li>Conflict detection that reports exactly which days a new course collides with your schedule.</li>
+          <li>Tested with OUnit, with coverage measured by bisect_ppx.</li>
+        </ul>
+        <p class="built">OCaml, Dune, Yojson, Cohttp</p>
+      </article>
+
+      <p class="section-label" style="margin-top:24px">Currently working on</p>
+      <article class="project" style="border-top:0;padding-top:0">
+        <h2>The shape of city shadows</h2>
+        <p class="sub">Fall 2026, in progress</p>
+        <div class="fig-side">
+          <div class="prose" style="gap:12px">
+            <p>Stand somewhere on a street and look toward the sun. Whether you're in shade depends on the skyline in that direction, and the skyline is set by whichever building <i>looks</i> tallest from where you are, which is often not the tallest one.</p>
+            <div class="eq" aria-label="Skyline angle and sunlight equations">
+              <span>β<sub>C</sub>(p, θ) = <span class="up">arctan</span> max<sub>j</sub> h<sub>j</sub> / d<sub>j</sub>(p, θ)</span>
+              <span>V<sub>C</sub>(p, θ, α) = <span class="up">𝟏</span>[ α &gt; β<sub>C</sub>(p, θ) ]</span>
+            </div>
+            <p>You're in sunlight when the sun's elevation α clears the skyline angle β.</p>
+          </div>
+          <figure>
+            <svg viewBox="0 0 200 116" role="img" aria-label="A 10-unit building 10 units away subtends 45 degrees, higher than a 30-unit building 60 units away at about 26.6 degrees.">
+              <line x1="4" y1="98" x2="196" y2="98" stroke="var(--muted)" stroke-width="1"/>
+              <rect x="34" y="74" width="16" height="24" fill="var(--ink)"/>
+              <rect x="156" y="26" width="30" height="72" fill="var(--faint)"/>
+              <line x1="10" y1="98" x2="86" y2="22" stroke="var(--link)" stroke-width="1.5"/>
+              <line x1="10" y1="98" x2="156" y2="26" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+              <circle cx="10" cy="98" r="3" fill="var(--link)"/>
+              <text x="90" y="24" font-size="10" font-family="Source Serif 4, Georgia, serif" fill="var(--link)">45°</text>
+              <text x="100" y="66" font-size="10" font-family="Source Serif 4, Georgia, serif" fill="var(--muted)">26.6°</text>
+            </svg>
+            <figcaption>A 10 m building 10 m away blocks more sky than a 30 m building 60 m away.</figcaption>
+          </figure>
+        </div>
+        <div class="prose" style="gap:12px">
+          <p>To study this in a controlled way, we split a city into a west and an east group of buildings and scale their heights by two multipliers, <i>a</i> and <i>b</i>. Which group controls the skyline flips wherever <i>a·A</i> = <i>b·B</i>, so each location and direction cuts the (<i>a</i>, <i>b</i>) plane into regions.</p>
+          <p>We then treat the whole collection of skyline rules as a mathematical space and ask whether it's a manifold. On the learning side, a VAE compresses lists of skyline measurements down to two latent coordinates, and we compare what it learns against the geometry.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- RESUME -->
+    <section class="view" id="view-resume" aria-labelledby="res-h" hidden>
+      <div class="resume-head">
+        <h1 id="res-h">Resume</h1>
+        <div style="display:grid;gap:4px;justify-items:end">
+          <a class="pdf-btn dl" href="Michael_Sidoti_Resume.pdf" target="_blank" rel="noopener">Download PDF</a>
+          <span class="dl-note" id="dl-note" aria-live="polite"></span>
+        </div>
+      </div>
+
+      <div class="r-block">
+        <h2>Education</h2>
+        <div class="r-entry">
+          <div class="role-line"><h3>Cornell University</h3><span class="dates">Expected May 2028</span></div>
+          <span class="where">B.A. in Computer Science and Mathematics · GPA 3.85</span>
+        </div>
+      </div>
+
+      <div class="r-block">
+        <h2>Experience</h2>
+        <div class="r-entry" id="r-aws">
+          <div class="role-line"><h3>Amazon Web Services</h3><span class="dates">May – Aug 2026</span></div>
+          <span class="where">Software Development Engineer Intern · Herndon, VA</span>
+          <ul>
+            <li>Designed an event-driven notification system for an internal service used by 10,000 engineers and 5,000 resolver groups, using DynamoDB, EventBridge, Lambda, SES, SQS dead-letter queues and CloudWatch alarms.</li>
+            <li>Modeled DynamoDB tables for notification events and user preferences with resolver-group partition keys, timestamp sort keys, TTL expiry and per-channel configuration for batched delivery.</li>
+            <li>Implemented preference APIs for setting, retrieving and removing resolver-group subscriptions by event type and delivery channel.</li>
+            <li>Designed fault-tolerant dispatch with persisted event state, per-channel statuses, retries, dead-letter queues and extensible SES, SNS and Slack formatting.</li>
+          </ul>
+        </div>
+        <div class="r-entry" id="r-lab">
+          <div class="role-line"><h3>Math + AI Lab, Cornell University</h3><span class="dates">Jan 2026 – present</span></div>
+          <span class="where">Undergraduate Research Assistant · Ithaca, NY</span>
+          <ul>
+            <li>Selected from a competitive pool of applicants to do research in Cornell's largest fully funded AI research lab.</li>
+            <li>Translating Chebfun, a MATLAB numerical computing library, into Python under Prof. Alex Townsend while preserving numerical semantics, API behavior and test-driven correctness.</li>
+            <li>Helped evaluate LLM coding agents on large-scale scientific software translation, documenting limits around overloaded syntax, floating-point conventions, object dispatch and numerical edge cases.</li>
+            <li>Presented to 40+ students and faculty across the lab's research groups; co-author of “Translating Chebfun from MATLAB to Python,” planned for arXiv.</li>
+          </ul>
+        </div>
+        <div class="r-entry" id="r-orie">
+          <div class="role-line"><h3>Operations Research &amp; Information Engineering Project Team</h3><span class="dates">Dec 2025 – May 2026</span></div>
+          <span class="where">Cornell University · Ithaca, NY</span>
+          <ul>
+            <li>Built a Python simulator for single-server queues with discrete-rank scheduling policies, tracking arrivals, service progress, completions and mean job delay.</li>
+            <li>Developed a bisection-based simulation algorithm that skips unnecessary rank-breakpoint events.</li>
+            <li>Used NumPy vectorization to reach a 108× speedup over naive discrete-event simulation on 5,000-job, high-resolution benchmarks.</li>
+            <li>Met twice weekly with a PhD mentor and ORIE faculty on queueing theory, scheduling and simulation.</li>
+          </ul>
+        </div>
+        <div class="r-entry" id="r-ta">
+          <div class="role-line"><h3>Teaching Assistant, CS 5820 and CS 2800</h3><span class="dates">Sep 2025 – present</span></div>
+          <span class="where">Cornell University · Ithaca, NY</span>
+          <ul>
+            <li>Lead weekly two-hour discussion sections for 30 students on algorithm design, graph theory, proofs, asymptotic analysis and probability.</li>
+            <li>Hold 10 hours of tutoring a week, supporting 300+ students across both courses.</li>
+            <li>Grade homework and contribute exam and quiz questions on recurrences, induction, graph theory and probability.</li>
+          </ul>
+        </div>
+        <div class="r-entry" id="r-da">
+          <div class="role-line"><h3>DataAnnotation</h3><span class="dates">Jan 2025 – present</span></div>
+          <span class="where">AI Trainer · Remote</span>
+          <ul>
+            <li>Passed a selective technical screen to train AI models in computer science, mathematics and physics.</li>
+            <li>Evaluate LLM outputs through RLHF workflows on complex reasoning tasks.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="r-block">
+        <h2>Relevant coursework</h2>
+        <div class="cols">
+          <div>
+            <h3>Computer science</h3>
+            <ul>
+              <li>Machine Learning (graduate level)</li>
+              <li>Analysis of Algorithms</li>
+              <li>Data Structures and Functional Programming</li>
+              <li>Computer System Organization and Programming</li>
+              <li>Data Structures and Algorithms</li>
+              <li>Object-Oriented Programming</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Mathematics</h3>
+            <ul>
+              <li>Probability Theory</li>
+              <li>Combinatorics</li>
+              <li>Linear Algebra</li>
+              <li>Multivariable Calculus</li>
+              <li>Differential Equations</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="r-block">
+        <h2>Technical skills</h2>
+        <dl class="skills">
+          <div><dt>Languages</dt><dd>Java, Python, C, C++, Go, JavaScript, TypeScript, OCaml</dd></div>
+          <div><dt>Frameworks</dt><dd>FastAPI, JUnit, Spring Boot, React, Tailwind, Node.js</dd></div>
+          <div><dt>Libraries</dt><dd>pandas, NumPy, Matplotlib</dd></div>
+          <div><dt>Cloud and tools</dt><dd>AWS, DynamoDB, Lambda, EventBridge, CloudWatch, Git, Docker</dd></div>
+        </dl>
+      </div>
+    </section>
+  </main>
+
+  <footer>Michael Sidoti · mas888@cornell.edu</footer>
+</div>
+
+<script>
+(function () {
+  // ---------- Views ----------
+  var VIEWS = ['about', 'experience', 'projects', 'resume'];
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('nav a'));
+  var current = null;
+
+  function show(name, jumpId) {
+    if (VIEWS.indexOf(name) < 0) name = 'about';
+    VIEWS.forEach(function (v) { document.getElementById('view-' + v).hidden = v !== name; });
+    navLinks.forEach(function (a) {
+      if (a.dataset.view === name) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    });
+    var changed = current !== name;
+    current = name;
+    try { history.replaceState(null, '', '#' + name); } catch (e) {}
+    if (name === 'about') requestAnimationFrame(draw);
+    if (jumpId) {
+      var el = document.getElementById(jumpId);
+      if (el) { el.scrollIntoView({ block: 'start' }); el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); }
+    } else if (changed) {
+      window.scrollTo(0, 0);
+    }
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[data-view], a[data-jump]');
+    if (!a) return;
+    e.preventDefault();
+    if (a.dataset.jump) show('resume', a.dataset.jump); else show(a.dataset.view);
+  });
+  window.addEventListener('hashchange', function () { show(location.hash.slice(1)); });
+
+  // ---------- Resume PDF download ----------
+  var note = document.getElementById('dl-note');
+  var downloadsP = (window.claude && window.claude.use) ? window.claude.use('downloads').catch(function () { return null; }) : Promise.resolve(null);
+  if (window.claude && window.claude.use) document.querySelectorAll('a.dl').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      var href = a.getAttribute('href');
+      var fname = a.dataset.filename || 'Michael_Sidoti_Resume.pdf';
+      var noteEl = (a.dataset.note && document.getElementById(a.dataset.note)) || note;
+      downloadsP.then(function (downloads) {
+        if (!downloads) { window.location.href = href; return; }
+        return fetch(href).then(function (r) {
+          if (!r.ok) throw new Error('fetch');
+          return r.blob();
+        }).then(function (blob) {
+          return downloads.save({ filename: fname, data: blob });
+        }).then(function () {
+          if (noteEl) noteEl.textContent = 'Saved.';
+        }).catch(function (err) {
+          if (!noteEl) return;
+          if (err && err.code === 'declined') noteEl.textContent = '';
+          else if (err && err.code === 'rate_limited') noteEl.textContent = 'A save prompt is already open.';
+          else noteEl.textContent = 'Download isn’t available here. Email me and I’ll send it.';
+        });
+      });
+    });
+  });
+
+  // ---------- Copy email ----------
+  var btn = document.getElementById('copy-email');
+  var em = document.getElementById('email');
+  btn.addEventListener('click', function () {
+    function selectIt() {
+      var r = document.createRange(); r.selectNodeContents(em);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = 'selected';
+    }
+    try { navigator.clipboard.writeText(em.textContent).then(function () { btn.textContent = 'copied'; }, selectIt); }
+    catch (e) { selectIt(); }
+    setTimeout(function () { btn.textContent = 'copy'; }, 1800);
+  });
+
+  // ---------- Chebyshev plot ----------
+  var cv = document.getElementById('cheb');
+  var ctx = cv.getContext('2d');
+  var range = document.getElementById('deg');
+  var out = document.getElementById('deg-out');
+  var shown = +range.value, raf = null;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function tok(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+  function T(nu, x) { return Math.cos(nu * Math.acos(Math.max(-1, Math.min(1, x)))); }
+
+  function draw() {
+    var w = cv.clientWidth, h = cv.clientHeight;
+    if (!w || !h) return;
+    var dpr = window.devicePixelRatio || 1;
+    if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    var padL = 22, padR = 6, padY = 12;
+    var X = function (x) { return padL + (x + 1) / 2 * (w - padL - padR); };
+    var Y = function (y) { return (h - 14) / 2 - y * ((h - 14) / 2 - padY); };
+
+    ctx.strokeStyle = tok('--rule'); ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(X(-1), Math.round(Y(0)) + 0.5); ctx.lineTo(X(1), Math.round(Y(0)) + 0.5); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(Math.round(X(-1)) + 0.5, Y(1)); ctx.lineTo(Math.round(X(-1)) + 0.5, Y(-1)); ctx.stroke();
+
+    ctx.fillStyle = tok('--muted');
+    ctx.font = '11px "Source Serif 4", Georgia, serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('−1', X(-1), h - 2); ctx.fillText('0', X(0), h - 2); ctx.fillText('1', X(1) - 4, h - 2);
+    ctx.textAlign = 'right';
+    ctx.fillText('1', padL - 6, Y(1) + 4); ctx.fillText('−1', padL - 6, Y(-1) + 4);
+
+    var steps = Math.max(200, Math.round(w * 1.5));
+    ctx.strokeStyle = tok('--link'); ctx.lineWidth = 1.75; ctx.lineJoin = 'round';
+    ctx.beginPath();
+    for (var j = 0; j <= steps; j++) { var x = -1 + 2 * j / steps; var px = X(x), py = Y(T(shown, x)); j ? ctx.lineTo(px, py) : ctx.moveTo(px, py); }
+    ctx.stroke();
+
+    if (Math.abs(shown - Math.round(shown)) < 0.02) {
+      var m = Math.round(shown);
+      ctx.fillStyle = tok('--bg'); ctx.strokeStyle = tok('--link'); ctx.lineWidth = 1.25;
+      for (var r = 1; r <= m; r++) {
+        var xr = Math.cos((2 * r - 1) * Math.PI / (2 * m));
+        ctx.beginPath(); ctx.arc(X(xr), Y(0), 3, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      }
+    }
+  }
+
+  function animateTo(target) {
+    if (raf) cancelAnimationFrame(raf);
+    if (reduce) { shown = target; draw(); return; }
+    var from = shown, t0 = performance.now(), dur = 450;
+    function step(t) {
+      var p = Math.min(1, (t - t0) / dur); p = 1 - Math.pow(1 - p, 3);
+      shown = from + (target - from) * p; draw();
+      if (p < 1) raf = requestAnimationFrame(step); else { shown = target; draw(); raf = null; }
+    }
+    raf = requestAnimationFrame(step);
+  }
+  range.addEventListener('input', function () { out.textContent = range.value; animateTo(+range.value); });
+
+  window.addEventListener('resize', draw);
+  try { window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw); } catch (e) {}
+  new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+
+  show(location.hash.slice(1));
+})();
+</script>
+
+</body>
+</html>
