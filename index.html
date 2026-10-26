@@ -234,7 +234,6 @@ footer { margin-top: 64px; padding-top: 14px; border-top: 1px solid var(--rule);
 
       <article class="project" style="border-top:0;padding-top:0">
         <h2>PyCheb: Chebfun in Python, built with AI coding agents</h2>
-        <p class="sub">Math + AI Lab with Prof. Alex Townsend, 2026, research team of seven</p>
         <div class="prose" style="gap:12px">
           <p>Chebfun represents smooth functions by their Chebyshev expansions, so you can differentiate, integrate, find roots and solve differential equations on functions as if they were numbers. It's about 3,400 MATLAB files. We're porting it to Python with AI coding agents (I work with Codex), and most of the engineering is in the process that makes an agent's output trustworthy.</p>
         </div>
@@ -250,7 +249,6 @@ footer { margin-top: 64px; padding-top: 14px; border-top: 1px solid var(--rule);
 
       <article class="project">
         <h2>Fast simulation of discrete-rank scheduling</h2>
-        <p class="sub">Spring 2026</p>
         <div class="prose" style="gap:12px">
           <p>A single-server queue that always serves the job with the lowest rank, where a job's rank depends on how much service it has already received. A naive discrete-event simulator has to stop at every rank breakpoint. Ours advances groups of tied jobs together and uses bisection to jump straight to the next event that actually changes which job is being served.</p>
           <p>We then replaced the per-job Python loops with vectorized NumPy array operations. On the largest benchmark (5,000 jobs, highest rank resolution), the naive simulator took over 16,000 seconds, about four and a half hours. Ours finished in 150 seconds, a 108× speedup.</p>
@@ -260,7 +258,6 @@ footer { margin-top: 64px; padding-top: 14px; border-top: 1px solid var(--rule);
 
       <article class="project">
         <h2>Cornell course scheduler</h2>
-        <p class="sub">CS 3110 final project, team of four</p>
         <div class="prose" style="gap:12px">
           <p>An OCaml schedule builder that pulls live course data from Cornell's Class Roster API. You can search by subject, name, level, credits or requirement, then add courses to a schedule that catches time conflicts and missing lecture or discussion sections.</p>
         </div>
