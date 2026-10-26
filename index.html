@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta property="og:title" content="Michael Sidoti">
 <meta property="og:description" content="Computer Science and Mathematics at Cornell University. Software engineering, research and projects.">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="5c7580fa-fdaa-4d39-b808-965fe0a3ccd4"></script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231f4fbf'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='17' font-weight='700' text-anchor='middle' fill='white'%3EMS%3C/text%3E%3C/svg%3E">
 <title>Michael Sidoti</title>
 <meta name="description" content="Michael Sidoti, Computer Science and Mathematics at Cornell University.">
@@ -191,7 +192,7 @@ footer { margin-top: 64px; padding-top: 14px; border-top: 1px solid var(--rule);
       </div>
       <div class="elsewhere small" style="margin-top:-18px">
         <span>Email: <span class="mono" id="email">mas888@cornell.edu</span> <button class="linkish small" id="copy-email" type="button">copy</button></span>
-        <span>Resume: <a class="dl" href="Michael_Sidoti_Resume.pdf" target="_blank" rel="noopener">PDF</a></span>
+        <span>Resume: <a class="dl" data-umami-event="Resume PDF" data-umami-event-from="about" href="Michael_Sidoti_Resume.pdf" target="_blank" rel="noopener">PDF</a></span>
       </div>
     </section>
 
@@ -254,7 +255,7 @@ footer { margin-top: 64px; padding-top: 14px; border-top: 1px solid var(--rule);
           <p>A single-server queue that always serves the job with the lowest rank, where a job's rank depends on how much service it has already received. A naive discrete-event simulator has to stop at every rank breakpoint. Ours advances groups of tied jobs together and uses bisection to jump straight to the next event that actually changes which job is being served.</p>
           <p>We then replaced the per-job Python loops with vectorized NumPy array operations. On the largest benchmark (5,000 jobs, highest rank resolution), the naive simulator took over 16,000 seconds, about four and a half hours. Ours finished in 150 seconds, a 108× speedup.</p>
         </div>
-        <p class="built">Python, NumPy · <a class="dl" href="Discrete_Rank_Scheduling_Paper.pdf" data-filename="Discrete_Rank_Scheduling_Paper.pdf" data-note="paper-note" target="_blank" rel="noopener">Read the paper (PDF)</a> <span class="dl-note" id="paper-note" aria-live="polite"></span></p>
+        <p class="built">Python, NumPy · <a class="dl" data-umami-event="Scheduling paper PDF" href="Discrete_Rank_Scheduling_Paper.pdf" data-filename="Discrete_Rank_Scheduling_Paper.pdf" data-note="paper-note" target="_blank" rel="noopener">Read the paper (PDF)</a> <span class="dl-note" id="paper-note" aria-live="polite"></span></p>
       </article>
 
       <article class="project">
@@ -310,7 +311,7 @@ footer { margin-top: 64px; padding-top: 14px; border-top: 1px solid var(--rule);
       <div class="resume-head">
         <h1 id="res-h">Resume</h1>
         <div style="display:grid;gap:4px;justify-items:end">
-          <a class="pdf-btn dl" href="Michael_Sidoti_Resume.pdf" target="_blank" rel="noopener">Download PDF</a>
+          <a class="pdf-btn dl" data-umami-event="Resume PDF" data-umami-event-from="resume" href="Michael_Sidoti_Resume.pdf" target="_blank" rel="noopener">Download PDF</a>
           <span class="dl-note" id="dl-note" aria-live="polite"></span>
         </div>
       </div>
@@ -430,7 +431,9 @@ footer { margin-top: 64px; padding-top: 14px; border-top: 1px solid var(--rule);
       if (a.dataset.view === name) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
     var changed = current !== name;
+    var firstLoad = current === null;
     current = name;
+    if (changed && !firstLoad) { try { if (window.umami && window.umami.track) window.umami.track('Opened ' + name); } catch (e) {} }
     try { history.replaceState(null, '', '#' + name); } catch (e) {}
     if (name === 'about') requestAnimationFrame(draw);
     if (jumpId) {
