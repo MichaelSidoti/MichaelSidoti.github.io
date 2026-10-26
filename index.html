@@ -244,10 +244,6 @@ footer { margin-top: 64px; padding-top: 14px; border-top: 1px solid var(--rule);
           <li><b>Scoped context.</b> Each prompt limits the agent to the module, its tests and its direct dependencies. That keeps token cost down and keeps edits from spreading.</li>
           <li><b>Debugging test failures.</b> When tests fail, I separate floating-point rounding differences from real bugs. I push back when an agent argues that a behavior gap is acceptable instead of fixing it.</li>
         </ul>
-        <div class="prose" style="gap:12px">
-          <p>I've translated chebtech1, smoothfun, singfun, chebfunpref and chebpref, domain, linop, and the discretization classes. As of April 2026 the port had 1,111 Python test files mirroring 1,102 MATLAB ones, 1,447 tests in total. Every test family with a Python counterpart covers all of its MATLAB tests. The GUI and the SPIN solvers are what remains.</p>
-          <p>We're writing up where agents struggle with scientific code (overloaded syntax, floating-point conventions, object dispatch, numerical edge cases) in a paper planned for arXiv.</p>
-        </div>
         <p class="built">Python, NumPy, pytest, Codex</p>
       </article>
 
